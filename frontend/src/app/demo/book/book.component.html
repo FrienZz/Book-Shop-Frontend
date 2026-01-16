@@ -25,14 +25,14 @@
           <td class="text-wrap">{{ book.author }}</td>
           <td class="text-wrap">
             @for (category of book.categories; track $category) {
-              <span class="badge mb-1 bg-info">{{ category }}</span>
+              <span class="badge mb-1 bg-info">{{ category.category_type }}</span>
             }
           </td>
-          <td class="text-wrap">{{ book.publisher_name }}</td>
+          <td class="text-wrap">{{ book.publisher.name }}</td>
           <td>{{ book.price_per_day }}</td>
           <td>{{ book.available_copies }}</td>
           <td>
-            <i class="feather icon-eye mx-1 cursor-pointer" title="แสดงรายละเอียด"></i>
+            <i class="feather icon-eye mx-1 cursor-pointer" title="แสดงรายละเอียด" (click)="OnViewDetail(book)"></i>
             <i class="feather icon-edit mx-1 cursor-pointer" (click)="OnEditFormModal(book._id)" title="แก้ไขข้อมูล"></i>
           </td>
         </tr>

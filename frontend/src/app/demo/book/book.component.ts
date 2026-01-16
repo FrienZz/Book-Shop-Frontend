@@ -89,4 +89,8 @@ export class BooksComponent {
       modal.show();
     }
   }
+
+  OnViewDetail(book: Book) {
+    console.log('it work!!!');
+  }
 }

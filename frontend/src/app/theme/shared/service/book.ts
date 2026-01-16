@@ -9,22 +9,24 @@ export interface Book {
   img_url: string;
   price_per_day: number;
   total_copies: number;
+  publisher: { _id: string; name: string };
+  categories: { _id: string; category_type: string }[];
+}
+
+export interface BookInput {
+  title: string;
+  author: string;
+  description: string;
+  img_url: string;
+  price_per_day: number;
+  total_copies: number;
   publisherId: string;
   categories: string[];
 }
 
 interface BookRes {
   message: string;
-  data: {
-    title: string;
-    author: string;
-    description: string;
-    img_url: string;
-    price_per_day: number;
-    total_copies: number;
-    publisher_name: string;
-    categories: string[];
-  }[];
+  data: Book[];
 }
 
 @Injectable({
@@ -41,7 +43,7 @@ export class BookService {
     return this.http.get<{ message: string; data: Book }>(`http://localhost:3000/books/${id}`);
   }
 
-  addBook(data: Book): Observable<BookRes> {
+  addBook(data: BookInput): Observable<BookRes> {
     return this.http.post<BookRes>('http://localhost:3000/books', data);
   }
 }
