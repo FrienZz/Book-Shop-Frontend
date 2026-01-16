@@ -1,0 +1,22 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+::ng-deep .dataTables_filter input {
+  width: 300px !important;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  padding: 6px 10px 6px 20px;
+  background-image: url('../../../assets/images/search-icon.png');
+  background-repeat: no-repeat;
+  background-position: 4px center;
+  background-size: 16px;
+}
+
+::ng-deep .dataTables_filter input:focus {
+  background-image: url('../../../assets/images/search-icon.png');
+  background-repeat: no-repeat;
+  background-position: 4px center;
+  background-size: 16px;
+}

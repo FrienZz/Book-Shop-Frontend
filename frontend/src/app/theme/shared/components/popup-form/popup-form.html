@@ -1,0 +1,170 @@
+<div class="modal fade" id="bookModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title font-weight-bold fs-5">เพิ่มข้อมูลหนังสือ</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form (ngSubmit)="onSubmit($event)">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fs-6">ชื่อหนังสือ</label>
+            <input
+              type="text"
+              id="title"
+              class="form-control"
+              [class.is-invalid]="submitted() && bookForm.title().invalid()"
+              [field]="bookForm.title"
+              placeholder="ชื่อหนังสือ"
+            />
+            @if (submitted() && bookForm.title().invalid()) {
+            <div class="invalid-feedback text-start">
+              @for (error of bookForm.title().errors(); track error.kind) {
+              <div>{{ error.message }}</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label class="form-label fs-6">ผู้แต่ง</label>
+            <input
+              type="text"
+              id="author"
+              class="form-control"
+              [class.is-invalid]="submitted() && bookForm.author().invalid()"
+              [field]="bookForm.author"
+              placeholder="ผู้แต่ง"
+            />
+            @if (submitted() && bookForm.author().invalid()) {
+            <div class="invalid-feedback text-start">
+              @for (error of bookForm.author().errors(); track error.kind) {
+              <div>{{ error.message }}</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label class="form-label fs-6">คำอธิบาย</label>
+            <textarea class="form-control" id="description" rows="3" [field]="bookForm.description" placeholder="คำอธิบาย"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fs-6">ราคาเช่า/วัน</label>
+            <input
+              type="number"
+              id="description"
+              class="form-control"
+              [class.is-invalid]="submitted() && bookForm.price_per_day().invalid()"
+              [field]="bookForm.price_per_day"
+              placeholder="ราคาเช่า/วัน"
+            />
+            @if (submitted() && bookForm.price_per_day().invalid()) {
+            <div class="invalid-feedback text-start">
+              @for (error of bookForm.price_per_day().errors(); track error.kind) {
+              <div>{{ error.message }}</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label class="form-label fs-6">จำนวนเล่มในคลัง</label>
+            <input
+              type="number"
+              id="price_per_day"
+              class="form-control"
+              [class.is-invalid]="submitted() && bookForm.total_copies().invalid()"
+              [field]="bookForm.total_copies"
+              placeholder="จำนวนเล่มในคลัง"
+            />
+            @if (submitted() && bookForm.total_copies().invalid()) {
+            <div class="invalid-feedback text-start">
+              @for (error of bookForm.total_copies().errors(); track error.kind) {
+              <div>{{ error.message }}</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label class="form-label fs-6">หมวดหมู่</label>
+            <!-- <ng-select
+              bindValue="_id"
+              bindLabel="category_type"
+              [items]="categoryItems"
+              [multiple]="true"
+              [addTag]="onAddCategory"
+              addTagText="เพิ่มหมวดหมู่"
+              [(ngModel)]="selectedCategoriesId"
+              placeholder="เลือกหรือเพิ่มหมวด"
+              dropdownPosition="bottom"
+            ></ng-select> -->
+            <ng-select
+              bindValue="_id"
+              bindLabel="category_type"
+              [items]="categories"
+              [multiple]="true"
+              [(ngModel)]="selectedCategoriesId"
+              placeholder="เลือกหรือเพิ่มหมวด"
+              dropdownPosition="bottom"
+            ></ng-select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fs-6">สำนักพิมพ์</label>
+            <ng-select
+              bindValue="_id"
+              bindLabel="name"
+              [items]="publishers()"
+              [addTag]="onAddPublisher"
+              addTagText="เพิ่มสำนักพิมพ์"
+              [(ngModel)]="selectedPublishersId"
+              placeholder="เลือกหรือเพิ่มสำนักพิมพ์"
+              dropdownPosition="bottom"
+            ></ng-select>
+            <!--
+            @if (submitted() && !selectedPublishersId) {
+            <p>กรุณากรอกชื่อสำนักพิมพ์</p>
+            }-->
+          </div>
+          <div class="mb-3">
+            <label for="inputFile" class="form-label fs-6">รูปปกหนังสือ</label>
+            <input
+              type="file"
+              class="form-control"
+              (change)="onFileChange($event)"
+              [class.is-invalid]="submitted() && fileInValid"
+              id="inputFil
+              e"
+              #fileInput
+            />
+            @if (submitted() && fileInValid) {
+            <div class="invalid-feedback text-start">
+              <div>{{ fileErrorText }}</div>
+            </div>
+            }
+          </div>
+          <!--
+          <div class="mb-3">
+            <label class="form-label">ลิ้งก์รูปภาพปก</label>
+            <input
+              type="text"
+              id="img_url"
+              class="form-control"
+              [class.is-invalid]="submitted() && bookForm.img_url().invalid()"
+              [field]="bookForm.img_url"
+              placeholder="https://example.com/images/photo.jpg"
+            />
+            @if (submitted() && bookForm.img_url().invalid()) {
+            <div class="invalid-feedback text-start">
+              @for (error of bookForm.img_url().errors(); track error.kind) {
+              <div>{{ error.message }}</div>
+              }
+            </div>
+            }
+          </div>-->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+          <button type="submit" class="btn btn-success">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
